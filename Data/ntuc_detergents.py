@@ -37,14 +37,8 @@ def get_brands(url):
     path_to_driver = "D:\SP SEM 3\ST1501 - DATA ENGINEERING\CA1\Data\chromedriver_win32\chromedriver.exe"
     driver = webdriver.Chrome(path_to_driver)
 
-    # implicitly_wait tells the driver to wait before throwing an exception
-    # driver.implicitly_wait(30)
-    
     # driver.get(url) opens the page
     driver.get(url)
-    
-    # This starts the scrolling by passing the driver and a timeout
-    scroll(driver, 5)
     
     # Once scroll returns bs4 parsers the page_source
     soup_a = BeautifulSoup(driver.page_source, 'lxml')
@@ -104,11 +98,10 @@ def get_products(url):
                 non_discount = price.select('span.dQYxgv')
                 base_price.append(non_discount[0].text)
         
-        for stock in item.find_all('div', {'class': 'sc-1axwsmm-4'}):
-            if stock.select('button[data-testid="SvgAddToCart"]'):
-                instock.append(1)
-            else: 
-                instock.append(0)
+        if item.select('div.sc-1axwsmm-4'):
+            instock.append(1)
+        else:
+            instock.append(0)
     
     return product_name, measurements, base_price, instock
 
@@ -118,6 +111,7 @@ powder_product_name, powder_measurements, powder_base_price, powder_instock = ge
 
 insert_brands = ""
 current_index = 0
+first_category = 0
 
 
 liquid_brand = []
@@ -127,53 +121,51 @@ powder_brand = []
 brands.pop(31)
 # insert brand values
 for b_index, brand in enumerate(brands, start=1):
-    insert_brands += "('{}'),\n".format(brand)
+    insert_brands += "('{}'),\n".format(brand.lower())
     for index, name in enumerate(liquid_product_name, start=1):
         product_brand = name.split(' ', 1)[0].lower()
         if product_brand == brand.split(' ', 1)[0].lower():
-            liquid_brand.append(100 + b_index)
+            liquid_brand.append(first_category + b_index)
 
     for index, name in enumerate(powder_product_name, start=1):
         product_brand = name.split(' ', 1)[0].lower()
         if product_brand == brand.split(' ', 1)[0].lower():
-            powder_brand.append(100 + b_index)
+            powder_brand.append(first_category + b_index)
 
 
 
 # insert values
 current_index = 0
-# liquid_products = zip(liquid_product_name, liquid_measurements, liquid_base_price, liquid_instock, liquid_brand)
-# powder_products = zip(powder_product_name, powder_measurements, powder_base_price, powder_instock, powder_brand)
 
-# insert_products = ""
+insert_products = ""
 insert_price = ""
 
 for name, measurement, price, instock, brand in zip(liquid_product_name, liquid_measurements, liquid_base_price, liquid_instock, liquid_brand):
     current_index += 1
-    # desc = ''
-    # for word in name.split(' ')[1:]:
-    #     desc += word + ' '
-    # insert_products += "('{}', 'detergent, smells good, {}', '{}', 1, {}, {}, 472),\n".format(name, desc, measurement, instock, brand)
+    desc = ''
+    for word in name.split(' ')[1:]:
+        desc += word + ' '
+    insert_products += "('{}', 'detergent, smells good, {}', '{}', 1, {}, {}, 472),\n".format(name, desc, measurement, instock, brand)
     insert_price += "({}, {}, '01/01/20 00:00:00', 1),\n".format(current_index, price.split('$')[1])
 
 
 for name, measurement, price, instock, brand in zip(powder_product_name, powder_measurements, powder_base_price, powder_instock, powder_brand):
     current_index += 1
-    # desc = ''
-    # for word in name.split(' ')[1:]:
-    #     desc += word + ' '
-    # insert_products += "('{}', 'detergent, smells good, {}', '{}', 1, {}, {}, 473),\n".format(name, desc, measurement, instock, brand)
+    desc = ''
+    for word in name.split(' ')[1:]:
+        desc += word + ' '
+    insert_products += "('{}', 'detergent, smells good, {}', '{}', 1, {}, {}, 473),\n".format(name, desc, measurement, instock, brand)
     insert_price += "({}, {}, '01/01/20 00:00:00', 1),\n".format(current_index, price.split('$')[1])
 
 
-# file = open("insertProducts.txt", "w")
-# file.write(insert_products)
-# file.close()
+file = open("insertDetergentProducts.txt", "w")
+file.write(insert_products)
+file.close()
 
-file = open("insertPricing.txt", "w")
+file = open("insertDetergentPricing.txt", "w")
 file.write(insert_price)
 file.close()
 
-# file = open("insertBrands.txt", "a+")
-# file.write(insert_brands)
-# file.close()
+file = open("insertDetergentBrands.txt", "w")
+file.write(insert_brands)
+file.close()

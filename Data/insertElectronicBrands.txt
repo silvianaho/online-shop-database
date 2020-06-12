@@ -1,0 +1,6 @@
+('imaxalarm'),
+('mand'),
+('morries'),
+('powerpac'),
+('silverlite'),
+('sum'),

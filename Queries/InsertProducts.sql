@@ -1,3 +1,11 @@
+-- INSERT PRODUCTS
+
+USE OnShop1939213;
+GO
+
+INSERT INTO 
+	dbo.product(product_name, product_desc, measurements, is_available, is_in_stock, brand_id, category_id)
+VALUES
 ('Attack Liquid Detergent - Perfume (Floral)', 'detergent, smells good, Liquid Detergent - Perfume (Floral) ', '3.6kg', 1, 1, 1, 472),
 ('Attack Liquid Detergent - Perfume (Floral)', 'detergent, smells good, Liquid Detergent - Perfume (Floral) ', '3 x 3.6kg (CTN)', 1, 1, 1, 472),
 ('Attack Liquid Detergent - Plus Colour (Aroma Fresh)', 'detergent, smells good, Liquid Detergent - Plus Colour (Aroma Fresh) ', '3.6kg', 1, 1, 1, 472),
@@ -308,7 +316,7 @@
 ('Kirei Kin Goma Golden Sesame Daifuku Mochi w Sesame RedBean-Frozen', 'Cold and refreshing, Kin Goma Golden Sesame Daifuku Mochi w Sesame RedBean-Frozen , perfect for the hot Singaporean weather!', '90G', 1, 0, 46, 176),
 ('Kirei Sakura Mochi Japanese Dessert - Frozen', 'Cold and refreshing, Sakura Mochi Japanese Dessert - Frozen , perfect for the hot Singaporean weather!', '80G', 1, 0, 46, 176),
 ('Mummys Kajukatli', 'Cold and refreshing, Kajukatli , perfect for the hot Singaporean weather!', '400g', 1, 0, 47, 176),
-('Rachel's Organic Twin Traditional Creamy Rice Pudding Twinpack', 'Cold and refreshing, Organic Twin Traditional Creamy Rice Pudding Twinpack , perfect for the hot Singaporean weather!', '300G', 1, 1, 48, 176),
+('Rachel''s Organic Twin Traditional Creamy Rice Pudding Twinpack', 'Cold and refreshing, Organic Twin Traditional Creamy Rice Pudding Twinpack , perfect for the hot Singaporean weather!', '300G', 1, 1, 48, 176),
 ('Hokkaido Gateaux Au Chocolat Cheese Cake - Frozen', 'Fluffy and cool! Gateaux Au Chocolat Cheese Cake - Frozen ', '270G', 1, 0, 46, 177),
 ('Kirei Hokkaido Brulee Cheese Cake - Frozen', 'Fluffy and cool! Hokkaido Brulee Cheese Cake - Frozen ', '270G', 1, 0, 46, 177),
 ('Kirei Hokkaido New York Cheese Cake - Frozen', 'Fluffy and cool! Hokkaido New York Cheese Cake - Frozen ', '240G', 1, 0, 46, 177),
